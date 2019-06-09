@@ -18,12 +18,12 @@ def index():
     action = request.args.get('trigger')
     location = request.args.get('id')
     config_file = open('openhab-config.txt', 'r', encoding='utf-8')
-    openhab_host = config_file.read().rstrip('\n')
+    openhab_base_url = config_file.read().rstrip('\n')
     config_file.close()
 
     print(f"{auth.username().capitalize()} : {action}  -> {location}")
     headers = {'content-type': 'text/plain', 'Accept': 'application/json'}
-    url = f"{openhab_host}/rest/items/Presence_{auth.username().capitalize()}_{location}"
+    url = f"{openhab_base_url}/rest/items/Presence_{auth.username().capitalize()}_{location}"
     requests.post(url, data=enter_leave.get(action), headers=headers)
 
     return Response(status=200, mimetype='application/json')
