@@ -12,7 +12,7 @@ class Password:
             d[entry[0]] = entry[1]
         self.users = d
         password_file.close()
-        print(f"Password initialized with {self.users} {d} users.")
+        print(f"Password initialized with {self.users} users.")
 
     def verify_password(self, username: str, password: str) -> bool:
         """ Verifies the password of the user which is stored in 'users.txt' in sha1 form
