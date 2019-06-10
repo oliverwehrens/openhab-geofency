@@ -17,7 +17,7 @@ class Openhab:
         config_file.close()
         print(f"Openhab Connection: {self.openhab_base_url}.")
 
-    def inform(self, username: str, action: str, location: str):
+    def inform(self, username: str, action: str, location: str) -> bool:
         """
         Send the action to openhab for the current user and location. A switch named
         Presence_<NAME>_<LOCATION> needs to be available as item in Openhab.
@@ -35,6 +35,6 @@ class Openhab:
             if 200 <= response.status_code < 300:
                 return True
             else:
-                return True
+                return False
         else:
             return False

@@ -13,22 +13,27 @@ password = Password()
 @app.route('/locative', methods=['GET'])
 @auth.login_required
 def locative():
-    openhab.inform(username=auth.username(), action=request.args.get('trigger'),
-                   location=request.args.get('id'))
-    return Response(status=200)
+    return return_status(openhab.inform(username=auth.username(), action=request.args.get('trigger'),
+                                        location=request.args.get('id')))
 
 
 @app.route('/geofency', methods=['POST'])
 @auth.login_required
 def geofency():
-    openhab.inform(username=auth.username(), action=request.form.get('entry'),
-                   location=request.form.get('name'))
-    return Response(status=200)
+    return return_status(openhab.inform(username=auth.username(), action=request.form.get('entry'),
+                                        location=request.form.get('name')))
 
 
 @auth.verify_password
 def verify_password(username, user_password):
     return password.verify_password(username=username, password=user_password)
+
+
+def return_status(success: bool) -> Response:
+    if success:
+        return Response(status=200)
+    else:
+        return Response(status=400)
 
 
 if __name__ == '__main__':
