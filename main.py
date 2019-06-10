@@ -10,11 +10,25 @@ openhab = Openhab()
 password = Password()
 
 
-@app.route('/', methods=['GET'])
+@app.route('/locative', methods=['GET'])
 @auth.login_required
 def index():
     openhab.inform(username=auth.username().capitalize(), action=request.args.get('trigger'),
                    location=request.args.get('id'))
+    return Response(status=200)
+
+
+@app.route('/geofency/enter', methods=['POST'])
+@auth.login_required
+def enter():
+    openhab.inform(username=auth.username().capitalize(), action='enter', location=request.args.get('id'))
+    return Response(status=200)
+
+
+@app.route('/geofency/leave', methods=['POST'])
+@auth.login_required
+def leave():
+    openhab.inform(username=auth.username().capitalize(), action='leave', location=request.args.get('id'))
     return Response(status=200)
 
 

@@ -24,12 +24,16 @@ class Openhab:
         :param location: <LOCATION> part of the Presence_<NAME>_<LOCATION> switch
         :return: 200 or 404 response code
         """
+        print(f"User: {username} Action: {action} Location: {location}")
 
         if action in enter_leave and username is not None and location is not None:
             headers = {'content-type': 'text/plain', 'Accept': 'application/json'}
             url = f"{self.openhab_base_url}/rest/items/Presence_{username}_{location}"
-            requests.post(url, data=enter_leave.get(action), headers=headers)
-            return True
+            response = requests.post(url, data=enter_leave.get(action), headers=headers)
+            if 200 <= response.status_code < 300:
+                return True
+            else:
+                return True
         else:
             return False
 
