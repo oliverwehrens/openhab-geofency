@@ -12,16 +12,16 @@ password = Password()
 
 @app.route('/locative', methods=['GET'])
 @auth.login_required
-def index():
-    openhab.inform(username=auth.username().capitalize(), action=request.args.get('trigger'),
+def locative():
+    openhab.inform(username=auth.username(), action=request.args.get('trigger'),
                    location=request.args.get('id'))
     return Response(status=200)
 
 
 @app.route('/geofency', methods=['POST'])
 @auth.login_required
-def enter():
-    openhab.inform(username=auth.username().capitalize(), action=request.form.get('entry'),
+def geofency():
+    openhab.inform(username=auth.username(), action=request.form.get('entry'),
                    location=request.form.get('name'))
     return Response(status=200)
 
