@@ -2,7 +2,9 @@ import requests
 
 enter_leave = {
     "enter": "ON",
-    "leave": "OFF"
+    "leave": "OFF",
+    "0": "OFF",
+    "1": "ON"
 }
 
 openhab_base_url = ""
@@ -36,4 +38,3 @@ class Openhab:
                 return True
         else:
             return False
-

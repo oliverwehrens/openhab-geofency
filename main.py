@@ -18,17 +18,11 @@ def index():
     return Response(status=200)
 
 
-@app.route('/geofency/enter', methods=['POST'])
+@app.route('/geofency', methods=['POST'])
 @auth.login_required
 def enter():
-    openhab.inform(username=auth.username().capitalize(), action='enter', location=request.args.get('id'))
-    return Response(status=200)
-
-
-@app.route('/geofency/leave', methods=['POST'])
-@auth.login_required
-def leave():
-    openhab.inform(username=auth.username().capitalize(), action='leave', location=request.args.get('id'))
+    openhab.inform(username=auth.username().capitalize(), action=request.form.get('entry'),
+                   location=request.form.get('name'))
     return Response(status=200)
 
 
