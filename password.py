@@ -1,17 +1,22 @@
 import hashlib
+import os.path
 
 users: dict = {}
+users_file = 'conf/users.txt'
 
 
 class Password:
     def __init__(self):
-        password_file = open('users.txt', 'r', encoding='utf-8')
-        d = {}
-        for line in password_file.readlines():
-            entry = line.rstrip('\n').split(" ")
-            d[entry[0]] = entry[1]
-        self.users = d
-        password_file.close()
+        if os.path.isfile(users_file):
+            password_file = open(users_file, 'r', encoding='utf-8')
+            d = {}
+            for line in password_file.readlines():
+                entry = line.rstrip('\n').split(" ")
+                d[entry[0]] = entry[1]
+            self.users = d
+            password_file.close()
+        else:
+            print(f"File '{users_file}' does not exist.")
         print(f"Password initialized with {self.users} users.")
 
     def verify_password(self, username: str, password: str) -> bool:

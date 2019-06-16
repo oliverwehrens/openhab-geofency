@@ -3,8 +3,8 @@ MAINTAINER Oliver Wehrens <oliver@wehrens.de>
 COPY requirements.txt /
 RUN pip install -r /requirements.txt
 RUN mkdir /app
-COPY users.txt /app
-COPY openhab-config.txt /app
+COPY conf/users.txt /app
+COPY conf/openhab-config.txt /app
 COPY *.py /app/
 WORKDIR /app
 ENTRYPOINT ["gunicorn"]
